@@ -1,0 +1,5 @@
+Here is the instructions on how to set up and flutter application
+1. Create a flutter application (Creating flutter application for todo app frontend)
+2. Add fetchTodoList, deleteTodo, and addTodo functions in page UI code into the TodoListPage class to keep related functionality awwnd add http dependency
+3. Add selected and multiple delete (Delete multiple and add debugShow false)
+4. Refactored the EditTodoPage widget to handle the update functionality for a todo item.
