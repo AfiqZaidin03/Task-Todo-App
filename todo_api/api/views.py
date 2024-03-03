@@ -10,19 +10,19 @@ from .serializers import TodoSerializer
 def getRoutes(request):
     routes = [
         {
-            'Endpoint': '/notes/',
+            'Endpoint': '/tasks/',
             'method': 'GET',
             'body': None,
             'description': 'Returns an array of notes'
         },
         {
-            'Endpoint': '/notes/id',
+            'Endpoint': '/tasks/id',
             'method': 'GET',
             'body': None,
             'description': 'Returns a single notes object'
         },
         {
-            'Endpoint': '/notes/create',
+            'Endpoint': '/tasks/create',
             'method': 'POST',
             'body': {
                 'title': "",
@@ -32,7 +32,7 @@ def getRoutes(request):
             'description': 'Creates new note with data sent in post request'
         },
         {
-            'Endpoint': '/notes/id/update',
+            'Endpoint': '/tasks/id/update',
             'method': 'PUT',
             'body': {
                 'title': "",
@@ -42,7 +42,7 @@ def getRoutes(request):
             'description': 'Creates an existing note with data sent in post request'
         },
         {
-            'Endpoint': '/notes/id/delete',
+            'Endpoint': '/tasks/id/delete',
             'method': 'DELETE',
             'body': None,
             'description': 'Deletes and existing note'
