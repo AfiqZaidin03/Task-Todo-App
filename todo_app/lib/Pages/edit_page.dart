@@ -6,7 +6,7 @@ class EditTodoPage extends StatefulWidget {
   final String title;
   final String desc;
   final bool isDone;
-  final Function refreshTodoList; // Function to refresh the todo list
+  final Function refreshTodoList;
 
   const EditTodoPage({
     Key? key,
@@ -14,7 +14,7 @@ class EditTodoPage extends StatefulWidget {
     required this.title,
     required this.desc,
     required this.isDone,
-    required this.refreshTodoList, // Pass the function as a parameter
+    required this.refreshTodoList,
   }) : super(key: key);
 
   @override
@@ -32,6 +32,29 @@ class _EditTodoPageState extends State<EditTodoPage> {
     titleController = TextEditingController(text: widget.title);
     descController = TextEditingController(text: widget.desc);
     _isDone = widget.isDone;
+  }
+
+  Future<void> updateTodo(
+    int id,
+    String title,
+    String desc,
+    bool isDone,
+  ) async {
+    final response = await http.put(
+      Uri.parse('http://10.0.2.2:8000/tasks/$id/update/'),
+      body: {'title': title, 'desc': desc, 'isDone': isDone.toString()},
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update todo');
+    }
+    widget.refreshTodoList(); // Trigger a refresh of the todo list
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descController.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,28 +101,5 @@ class _EditTodoPageState extends State<EditTodoPage> {
         ),
       ),
     );
-  }
-
-  Future<void> updateTodo(
-    int id,
-    String title,
-    String desc,
-    bool isDone,
-  ) async {
-    final response = await http.put(
-      Uri.parse('http://10.0.2.2:8000/tasks/$id/update/'),
-      body: {'title': title, 'desc': desc, 'isDone': isDone.toString()},
-    );
-    if (response.statusCode != 200) {
-      throw Exception('Failed to update todo');
-    }
-    widget.refreshTodoList(); // Trigger a refresh of the todo list
-  }
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    descController.dispose();
-    super.dispose();
   }
 }

@@ -13,7 +13,7 @@ class TodoListPage extends StatefulWidget {
 
 class _TodoListPageState extends State<TodoListPage> {
   List<dynamic> todoList = [];
-  List<int> selectedIds = []; // List to store selected todo IDs
+  List<int> selectedIds = [];
 
   @override
   void initState() {
@@ -30,6 +30,17 @@ class _TodoListPageState extends State<TodoListPage> {
     } else {
       throw Exception('Failed to load todo list');
     }
+  }
+
+  Future<void> addTodo(String title, String desc) async {
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/tasks/create/'),
+      body: {'title': title, 'desc': desc, 'isDone': 'false'},
+    );
+    if (response.statusCode != 201) {
+      throw Exception('Failed to add todo');
+    }
+    fetchTodoList(); // Refresh the list after adding a task
   }
 
   Future<void> deleteTodo(int id) async {
@@ -149,16 +160,5 @@ class _TodoListPageState extends State<TodoListPage> {
             ]
           : null,
     );
-  }
-
-  Future<void> addTodo(String title, String desc) async {
-    final response = await http.post(
-      Uri.parse('http://10.0.2.2:8000/tasks/create/'),
-      body: {'title': title, 'desc': desc, 'isDone': 'false'},
-    );
-    if (response.statusCode != 201) {
-      throw Exception('Failed to add todo');
-    }
-    fetchTodoList(); // Refresh the list after adding a task
   }
 }
