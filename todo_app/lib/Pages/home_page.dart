@@ -13,6 +13,7 @@ class TodoListPage extends StatefulWidget {
 
 class _TodoListPageState extends State<TodoListPage> {
   List<dynamic> todoList = [];
+  List<int> selectedIds = []; // List to store selected todo IDs
 
   @override
   void initState() {
@@ -79,6 +80,18 @@ class _TodoListPageState extends State<TodoListPage> {
                     await deleteTodo(todoList[index]['id']);
                   },
                 ),
+                Checkbox(
+                  value: selectedIds.contains(todoList[index]['id']),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value!) {
+                        selectedIds.add(todoList[index]['id']);
+                      } else {
+                        selectedIds.remove(todoList[index]['id']);
+                      }
+                    });
+                  },
+                ),
               ],
             ),
           );
@@ -122,6 +135,19 @@ class _TodoListPageState extends State<TodoListPage> {
         },
         child: const Icon(Icons.add),
       ),
+      persistentFooterButtons: selectedIds.isNotEmpty
+          ? [
+              ElevatedButton(
+                onPressed: () {
+                  selectedIds.forEach((id) async {
+                    await deleteTodo(id);
+                  });
+                  selectedIds.clear();
+                },
+                child: const Text('Delete Selected'),
+              ),
+            ]
+          : null,
     );
   }
 
