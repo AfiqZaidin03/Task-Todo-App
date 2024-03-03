@@ -1,0 +1,8 @@
+
+Here is the instructions on how to set up and run django
+1. Install python environment, add rest_framework  (Create folder for todo_api use django framework);
+2. Create api folder and create database schema(Create new folder named api and run py manage.py migrate and run python manage.py makemigrations);
+3. Create model for class (Creating model for class todo)
+4. Create urls and serializers file (Creating urls file in api folder and path. Create serializers file in api folder);
+5. Edit setting and add class get and update (Edit api in setting and add class to get the data with create and update delete the data);
+6. Update django cors
