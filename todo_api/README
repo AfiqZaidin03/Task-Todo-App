@@ -6,3 +6,4 @@ Here is the instructions on how to set up and run django
 4. Create urls and serializers file (Creating urls file in api folder and path. Create serializers file in api folder);
 5. Edit setting and add class get and update (Edit api in setting and add class to get the data with create and update delete the data);
 6. Update django cors
+7. py manage.py runserver
